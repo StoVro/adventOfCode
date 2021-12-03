@@ -29,7 +29,6 @@ fun day2SecondPuzzle() {
             }
             "down" -> aim += it.second
             "up" -> aim -= it.second
-            //else -> println("false")
         }
     }
     val result = horizontal * depth

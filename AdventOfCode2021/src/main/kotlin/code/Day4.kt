@@ -72,7 +72,7 @@ fun day4SecondPuzzle() {
     val columnRowLength = 5
     var foundNumber = -1
     var indexLastBoard = -1
-    val alreadyWonBoards = mutableListOf<Int>()
+    val alreadyWonBoards = mutableSetOf<Int>()
     val numberAllBoards = INPUT_DAY_4_BOARDS.size
 
     run stop@{
@@ -90,14 +90,10 @@ fun day4SecondPuzzle() {
                             row.add(array[rowInnerIndex][outerIndex])
                         }
                         if (column.intersect(numbersToBeConsidered).size == 5) {
-                            if (alreadyWonBoards.contains(index).not()) {
-                                alreadyWonBoards.add(index)
-                            }
+                            alreadyWonBoards.add(index)
                         }
                         if (row.intersect(numbersToBeConsidered).size == 5) {
-                            if (alreadyWonBoards.contains(index).not()) {
-                                alreadyWonBoards.add(index)
-                            }
+                            alreadyWonBoards.add(index)
                         }
                         column.clear()
                         row.clear()
@@ -108,7 +104,6 @@ fun day4SecondPuzzle() {
                     nextIndex += 1
                 }
             } else {
-                println("$numberAllBoards und ${alreadyWonBoards.size}")
                 numbersToBeConsidered.removeLast()
                 foundNumber = numbersToBeConsidered.last()
                 indexLastBoard = alreadyWonBoards.last()

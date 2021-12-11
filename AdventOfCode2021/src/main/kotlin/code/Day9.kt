@@ -1,5 +1,6 @@
 package code
 
+import helpers.getXYDirections
 import input.INPUT_DAY9_HEIGHTS
 
 fun main() {
@@ -9,7 +10,7 @@ fun main() {
 fun day9FirstPuzzle() {
     val lowPoints = mutableListOf<Int>()
 
-    val directions = getDirections()
+    val directions = getXYDirections()
 
     val xMaximum = INPUT_DAY9_HEIGHTS[0].length - 1
     val yMaximum = INPUT_DAY9_HEIGHTS.size - 1
@@ -41,12 +42,4 @@ fun day9FirstPuzzle() {
     }
 
     println(lowPoints.sum())
-}
-
-fun getDirections() : Array<Direction> {
-    return arrayOf(Direction(-1,0), Direction(0,1), Direction(1,0), Direction(0,-1))
-}
-
-data class Direction(val horizontalChange: Int, val verticalChange: Int) {
-
 }

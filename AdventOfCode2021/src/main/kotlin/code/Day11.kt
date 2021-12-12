@@ -5,7 +5,8 @@ import helpers.getAllDirections
 import input.INPUT_DAY11_ENERGIES
 
 fun main() {
-    day11FirstPuzzle()
+    //day11FirstPuzzle()
+    day11SecondPuzzle()
 }
 
 fun day11FirstPuzzle() {
@@ -56,6 +57,61 @@ fun day11FirstPuzzle() {
     }
 
     println(allFlashes)
+}
+
+fun day11SecondPuzzle() {
+    var numberSteps = 0
+
+    var input = INPUT_DAY11_ENERGIES
+
+    val xMaximum = input[0].size - 1
+    val yMaximum = input.size - 1
+    val numberAllPoints = input[0].size * input.size
+    var repeatWithNextStep = true
+
+    while(repeatWithNextStep)  {
+        val allStepFlashedPoints = mutableListOf<Point>()
+        var allIterationFlashedPoints = mutableListOf<Point>()
+        numberSteps += 1
+
+        input = input.increaseEnergyByOne()
+
+        while(true) {
+            allIterationFlashedPoints.clear()
+            if(input.hasFlashingOctopuses(allStepFlashedPoints).not()) {
+                if(allStepFlashedPoints.isNotEmpty()) {
+                    input = input.resetAlreadyFlashedPoints()
+                }
+                if(allStepFlashedPoints.size == numberAllPoints) {
+                    repeatWithNextStep = false
+                }
+                break
+            }
+
+            allIterationFlashedPoints = input.pointsFlashInIteration()
+
+            allIterationFlashedPoints.forEach { currentPoint ->
+                if(allStepFlashedPoints.containsCurrentPoint(currentPoint).not()) {
+                    allStepFlashedPoints.add(Point(currentPoint.y, currentPoint.x))
+                    val directions = getAllDirections()
+
+                    directions.forEach directions@{ direction ->
+                        val testPointX = currentPoint.x + direction.horizontalChange
+                        val testPointY = currentPoint.y + direction.verticalChange
+
+                        if(testPointX < 0 || testPointY < 0 || testPointX > xMaximum || testPointY > yMaximum) {
+                            return@directions
+                        }
+
+                        val oldValue = input[testPointY][testPointX]
+                        input[testPointY][testPointX] = oldValue + 1
+                    }
+                }
+            }
+        }
+    }
+
+    println(numberSteps)
 }
 
 fun List<List<Int>>.pointsFlashInIteration() : MutableList<Point> {

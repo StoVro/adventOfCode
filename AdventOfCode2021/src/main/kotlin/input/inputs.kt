@@ -742,3 +742,4 @@ val INPUT_DAY11_ENERGIES : MutableList<MutableList<Int>>
             mutableListOf(2,6,6,2,2,5,5,2,7,5),
             mutableListOf(4,6,5,5,3,4,3,3,7,6),
             mutableListOf(7,8,5,2,5,2,6,1,6,8))
+
